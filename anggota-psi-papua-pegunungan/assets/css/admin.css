@@ -1,0 +1,79 @@
+/* ═══════════════════════════════════════════
+   Anggota PSI — Admin Stylesheet
+   ═══════════════════════════════════════════ */
+.anggota-psi-wrap { max-width: 1200px; }
+.anggota-psi-title { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 3px solid #D4213D; }
+.anggota-psi-title .dashicons { color: #D4213D; font-size: 1.5rem; width: 1.5rem; height: 1.5rem; }
+
+.anggota-psi-stats-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+.anggota-psi-stat-card { padding: 1.5rem; border-radius: 12px; text-align: center; }
+.anggota-card-red { background: linear-gradient(135deg, #D4213D, #B01A32); color: #fff; }
+.anggota-card-dark { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); color: #fff; }
+.anggota-card-gray { background: linear-gradient(135deg, #6c757d, #495057); color: #fff; }
+.anggota-card-gold { background: linear-gradient(135deg, #C9A96E, #A88B4A); color: #fff; }
+.anggota-stat-num { font-size: 2rem; font-weight: 800; line-height: 1.2; }
+.anggota-stat-label { font-size: 0.85rem; opacity: 0.85; margin-top: 0.25rem; }
+
+.anggota-psi-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.anggota-psi-card h2 { font-size: 1.15rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #f0f0f0; }
+
+.anggota-psi-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.anggota-psi-table th { background: #f8f9fa; padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: #1a1a1a; border-bottom: 2px solid #e8e8e8; white-space: nowrap; }
+.anggota-psi-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+.anggota-psi-table-striped tbody tr:nth-child(even) { background: #fafbfc; }
+.anggota-psi-table tr:hover { background: #f0f6ff; }
+.anggota-psi-table code { background: #f4f6f8; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.82rem; }
+
+.anggota-psi-table-wrap { overflow-x: auto; }
+.anggota-empty { text-align: center; padding: 2rem; color: #6c757d; font-style: italic; }
+
+.anggota-status { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 50px; font-size: 0.78rem; font-weight: 600; }
+.anggota-status-active { background: #d4edda; color: #155724; }
+.anggota-status-inactive { background: #f8d7da; color: #721c24; }
+
+.anggota-bar-wrap { display: inline-block; width: 120px; height: 8px; background: #e8e8e8; border-radius: 4px; overflow: hidden; vertical-align: middle; }
+.anggota-bar { height: 100%; background: linear-gradient(90deg, #D4213D, #C9A96E); border-radius: 4px; transition: width 0.5s ease; }
+.anggota-pct { font-size: 0.8rem; color: #6c757d; margin-left: 0.5rem; }
+
+.anggota-psi-filters { margin-bottom: 1.5rem; }
+.anggota-filter-form { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+.anggota-search-input { min-width: 250px; padding: 0.5rem 0.75rem; border: 1px solid #e8e8e8; border-radius: 8px; font-size: 0.9rem; }
+.anggota-filter-form select { padding: 0.5rem 0.75rem; border: 1px solid #e8e8e8; border-radius: 8px; font-size: 0.9rem; min-width: 150px; }
+
+.anggota-pagination { margin-top: 1.25rem; display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.anggota-pagination .button { min-width: 36px; text-align: center; }
+.anggota-total-info { margin-top: 0.75rem; font-size: 0.85rem; color: #6c757d; }
+
+.anggota-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.anggota-form-full { grid-column: 1 / -1; }
+.anggota-form-group label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.9rem; }
+.anggota-form-group input, .anggota-form-group select, .anggota-form-group textarea { width: 100%; padding: 0.6rem 0.85rem; border: 1px solid #e8e8e8; border-radius: 8px; font-size: 0.95rem; font-family: inherit; }
+.anggota-form-group input:focus, .anggota-form-group select:focus, .anggota-form-group textarea:focus { outline: none; border-color: #D4213D; box-shadow: 0 0 0 3px rgba(212,33,61,0.1); }
+.required { color: #D4213D; }
+.anggota-form-actions { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #f0f0f0; display: flex; align-items: center; }
+.anggota-form-actions .dashicons { vertical-align: middle; margin-right: 0.25rem; }
+
+.anggota-quick-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.anggota-quick-actions .button .dashicons { vertical-align: middle; margin-right: 0.25rem; font-size: 1rem; width: 1rem; height: 1rem; }
+
+.anggota-psi-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.anggota-export-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
+.anggota-export-actions .button .dashicons { vertical-align: middle; margin-right: 0.25rem; }
+
+.anggota-chart-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+.anggota-chart-row { display: flex; align-items: center; gap: 0.75rem; }
+.anggota-chart-label { min-width: 160px; font-size: 0.85rem; font-weight: 500; text-align: right; }
+.anggota-chart-bar-wrap { flex: 1; height: 24px; background: #f0f0f0; border-radius: 6px; overflow: hidden; }
+.anggota-chart-bar { height: 100%; background: linear-gradient(90deg, #D4213D, #e8566b); border-radius: 6px; transition: width 0.8s ease; min-width: 2px; }
+.anggota-chart-bar-gold { background: linear-gradient(90deg, #C9A96E, #DFC89A); }
+.anggota-chart-val { min-width: 60px; font-size: 0.85rem; font-weight: 700; }
+
+#anggota-import-form input[type="file"] { margin: 0.5rem 0; display: block; }
+
+@media (max-width: 782px) {
+    .anggota-form-grid { grid-template-columns: 1fr; }
+    .anggota-psi-grid-2 { grid-template-columns: 1fr; }
+    .anggota-filter-form { flex-direction: column; align-items: stretch; }
+    .anggota-search-input { min-width: auto; }
+    .anggota-chart-label { min-width: 100px; font-size: 0.78rem; }
+}
