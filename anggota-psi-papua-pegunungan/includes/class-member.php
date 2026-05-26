@@ -11,7 +11,7 @@ class Member {
 
     public static function generate_member_id() {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
         $year = date( 'Y' );
         $prefix = 'PSI-PP-' . $year . '-';
 
@@ -30,10 +30,14 @@ class Member {
         return $prefix . str_pad( $num, 4, '0', STR_PAD_LEFT );
     }
 
+    public static function get_table() {
+        global $wpdb;
+        return $wpdb->prefix . 'psi_members';
+    }
+
     public static function add( $data ) {
         global $wpdb;
-        $table = Database::get_members_table();
-
+        $table = self::get_table();
         $member_id = self::generate_member_id();
 
         $result = $wpdb->insert( $table, array(
@@ -58,12 +62,12 @@ class Member {
 
     public static function update( $id, $data ) {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
 
         $fields = array();
         $formats = array();
-
         $allowed = array( 'full_name', 'nik', 'email', 'phone', 'dpd_region', 'address', 'join_date', 'status', 'notes' );
+
         foreach ( $allowed as $key ) {
             if ( isset( $data[ $key ] ) ) {
                 $fields[ $key ] = sanitize_text_field( $data[ $key ] );
@@ -83,7 +87,7 @@ class Member {
 
     public static function delete( $id ) {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
         $result = $wpdb->delete( $table, array( 'id' => absint( $id ) ), array( '%d' ) );
         if ( $result ) {
             Security::log_action( 'member_deleted', 'Deleted member ID: ' . $id );
@@ -93,19 +97,19 @@ class Member {
 
     public static function get( $id ) {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
         return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", absint( $id ) ) );
     }
 
     public static function get_all( $args = array() ) {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
 
         $per_page = isset( $args['per_page'] ) ? absint( $args['per_page'] ) : 20;
-        $page = isset( $args['page'] ) ? max( 1, absint( $args['page'] ) ) : 1;
-        $offset = ( $page - 1 ) * $per_page;
+        $page     = isset( $args['page'] ) ? max( 1, absint( $args['page'] ) ) : 1;
+        $offset   = ( $page - 1 ) * $per_page;
 
-        $where = '1=1';
+        $where  = '1=1';
         $values = array();
 
         if ( ! empty( $args['search'] ) ) {
@@ -122,45 +126,48 @@ class Member {
             $values[] = sanitize_text_field( $args['status'] );
         }
 
+        /* SECURITY FIX: Strict whitelist for ORDER BY to prevent SQL injection */
+        $allowed_orderby = array( 'created_at', 'full_name', 'member_id', 'dpd_region', 'join_date' );
+        $order_by = in_array( $args['orderby'] ?? '', $allowed_orderby, true ) ? $args['orderby'] : 'created_at';
+
+        $allowed_order = array( 'ASC', 'DESC' );
+        $order = in_array( strtoupper( $args['order'] ?? '' ), $allowed_order, true ) ? strtoupper( $args['order'] ) : 'DESC';
+
         $total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$where}", $values ) );
 
-        $order_by = ! empty( $args['orderby'] ) ? sanitize_text_field( $args['orderby'] ) : 'created_at';
-        $order = ! empty( $args['order'] ) ? sanitize_text_field( $args['order'] ) : 'DESC';
+        $values[] = $per_page;
+        $values[] = $offset;
 
-        if ( ! empty( $values ) ) {
-            $rows = $wpdb->get_results( $wpdb->prepare(
-                "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order_by} {$order} LIMIT %d OFFSET %d",
-                array_merge( $values, array( $per_page, $offset ) )
-            ) );
-        } else {
-            $rows = $wpdb->get_results( "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order_by} {$order} LIMIT {$per_page} OFFSET {$offset}" );
-        }
+        $rows = $wpdb->get_results( $wpdb->prepare(
+            "SELECT * FROM {$table} WHERE {$where} ORDER BY {$order_by} {$order} LIMIT %d OFFSET %d",
+            $values
+        ) );
 
         return array(
-            'rows' => $rows,
-            'total' => (int) $total,
-            'per_page' => $per_page,
-            'page' => $page,
+            'rows'        => $rows,
+            'total'       => (int) $total,
+            'per_page'    => $per_page,
+            'page'        => $page,
             'total_pages' => ceil( $total / $per_page ),
         );
     }
 
     public static function count_by_region() {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
         return $wpdb->get_results( "SELECT dpd_region, COUNT(*) as total FROM {$table} WHERE status = 'active' GROUP BY dpd_region ORDER BY total DESC" );
     }
 
     public static function get_regions() {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
         $regions = $wpdb->get_col( "SELECT DISTINCT dpd_region FROM {$table} WHERE dpd_region != '' ORDER BY dpd_region" );
         return $regions ? $regions : array();
     }
 
     public static function total_count( $status = 'active' ) {
         global $wpdb;
-        $table = Database::get_members_table();
+        $table = self::get_table();
         if ( $status === 'all' ) {
             return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
         }
