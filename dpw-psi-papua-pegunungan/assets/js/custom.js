@@ -194,6 +194,8 @@
             formData.append('email', contactForm.querySelector('[name="email"]').value);
             formData.append('subject', contactForm.querySelector('[name="subject"]').value);
             formData.append('message', contactForm.querySelector('[name="message"]').value);
+            formData.append('captcha_answer', contactForm.querySelector('[name="captcha_answer"]').value);
+            formData.append('captcha_expected', contactForm.querySelector('[name="captcha_expected"]').value);
 
             fetch(dpwAjax.ajaxurl, {
                 method: 'POST',
@@ -235,7 +237,7 @@
         });
     });
 
-    /* ─── Back to Top (optional, added via JS for cleanliness) ─── */
+    /* ─── Back to Top ─── */
     var backToTop = document.createElement('button');
     backToTop.className = 'dpw-back-to-top';
     backToTop.innerHTML = '<i class="bi bi-chevron-up"></i>';
