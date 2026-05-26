@@ -1,0 +1,92 @@
+# Translation template for DPW PSI Papua Pegunungan theme.
+# Copyright (C) 2025 DPW PSI Papua Pegunungan
+# This file is distributed under the GPL v2.
+msgid ""
+msgstr ""
+"Project-Id-Version: DPW PSI Papua Pegunungan 1.0.0\n"
+"Report-Msgid-Bugs-To: tombinawaiqbal@gmail.com\n"
+"POT-Creation-Date: 2025-01-01 00:00+0000\n"
+"PO-Revision-Date: 2025-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Primary Menu"
+msgstr ""
+
+msgid "Footer Menu"
+msgstr ""
+
+msgid "Mobile Menu"
+msgstr ""
+
+msgid "Blog Sidebar"
+msgstr ""
+
+msgid "Footer Column 1"
+msgstr ""
+
+msgid "Footer Column 2"
+msgstr ""
+
+msgid "Footer Column 3"
+msgstr ""
+
+msgid "Ad Banner Sidebar"
+msgstr ""
+
+msgid "Berita"
+msgstr ""
+
+msgid "Galeri"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Struktur Organisasi"
+msgstr ""
+
+msgid "DPD Kabupaten"
+msgstr ""
+
+msgid "Agenda"
+msgstr ""
+
+msgid "Dokumen"
+msgstr ""
+
+msgid "Kategori Berita"
+msgstr ""
+
+msgid "Kategori Video"
+msgstr ""
+
+msgid "Wilayah DPD"
+msgstr ""
+
+msgid "Lihat Semua"
+msgstr ""
+
+msgid "Berita Terkait"
+msgstr ""
+
+msgid "Berita Populer"
+msgstr ""
+
+msgid "Tidak ada hasil ditemukan."
+msgstr ""
+
+msgid "Halaman Tidak Ditemukan"
+msgstr ""
+
+msgid "Hubungi Kami"
+msgstr ""
+
+msgid "Kirim Pesan"
+msgstr ""
+
+msgid "Bergabung dengan PSI"
+msgstr ""
