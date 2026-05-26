@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════════
+   DPW PSI Papua Pegunungan — Custom Login
+   ═══════════════════════════════════════════ */
+.login {
+    background: linear-gradient(135deg, #f4f6f8 0%, #ffffff 50%, #fdf2f4 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+}
+.login #login {
+    width: 100%;
+    max-width: 420px;
+    padding: 0 1.5rem;
+}
+.login h1 a {
+    background-image: none !important;
+    width: auto !important;
+    height: auto !important;
+    text-indent: 0 !important;
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    color: #D4213D !important;
+    display: block !important;
+    text-align: center !important;
+    padding: 0.5rem 0 !important;
+    line-height: 1.2 !important;
+}
+.login h1 a::after {
+    content: 'DPW Papua Pegunungan';
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.25rem;
+}
+.login form {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 16px !important;
+    padding: 2rem !important;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06) !important;
+}
+.login form .input-text {
+    border: 1px solid #e8e8e8 !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease !important;
+}
+.login form .input-text:focus {
+    border-color: #D4213D !important;
+    box-shadow: 0 0 0 3px rgba(212,33,61,0.1) !important;
+}
+.login form label { font-size: 0.9rem; font-weight: 600; color: #1a1a1a; }
+.login #loginform .forgetmenot { margin-bottom: 1rem; }
+.login #loginform .forgetmenot label { font-weight: 400; }
+.login #wp-submit {
+    background: #D4213D !important;
+    border: none !important;
+    border-radius: 50px !important;
+    padding: 0.75rem !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+}
+.login #wp-submit:hover {
+    background: #B01A32 !important;
+    box-shadow: 0 4px 20px rgba(212,33,61,0.35) !important;
+    transform: translateY(-1px);
+}
+.login #nav, .login #backtoblog {
+    text-align: center !important;
+    padding: 0.75rem 0 !important;
+    font-size: 0.85rem !important;
+}
+.login #nav a, .login #backtoblog a {
+    color: #D4213D !important;
+    font-weight: 500 !important;
+}
+.login #nav a:hover, .login #backtoblog a:hover {
+    color: #B01A32 !important;
+}
+.login .message, .login .success, .login #login_error {
+    border-left: 4px solid #D4213D !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 0 10px 10px 0 !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 1.25rem !important;
+}
+.login #login_error {
+    border-left-color: #D4213D !important;
+    background: #fdf2f4 !important;
+}
+.login .message, .login .success {
+    border-left-color: #25D366 !important;
+    background: #f0fdf4 !important;
+}
