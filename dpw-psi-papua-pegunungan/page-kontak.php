@@ -6,6 +6,11 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 get_header();
 dpw_psi_breadcrumb();
+
+/* Generate CAPTCHA inline without sessions */
+ $cap_a = rand( 1, 9 );
+ $cap_b = rand( 1, 9 );
+ $cap_answer = $cap_a + $cap_b;
 ?>
 <section class="dpw-section dpw-contact-section">
     <div class="container">
@@ -15,7 +20,6 @@ dpw_psi_breadcrumb();
         </div>
 
         <div class="dpw-contact-grid">
-            <!-- Contact Info -->
             <div class="dpw-contact-info">
                 <div class="dpw-contact-card">
                     <div class="dpw-contact-icon"><i class="bi bi-geo-alt"></i></div>
@@ -39,18 +43,15 @@ dpw_psi_breadcrumb();
                     </div>
                 </div>
 
-                <!-- Google Maps -->
                 <?php $maps = get_theme_mod( 'dpw_maps_embed', '' ); if ( $maps ) : ?>
-                    <div class="dpw-contact-maps">
-                        <?php echo $maps; ?>
-                    </div>
+                    <div class="dpw-contact-maps"><?php echo $maps; ?></div>
                 <?php endif; ?>
             </div>
 
-            <!-- Contact Form -->
             <div class="dpw-contact-form-wrap">
                 <form id="dpw-contact-form" class="dpw-contact-form" method="post">
                     <?php wp_nonce_field( 'dpw_psi_nonce', 'contact_nonce' ); ?>
+                    <input type="hidden" name="captcha_expected" value="<?php echo esc_attr( $cap_answer ); ?>">
                     <div class="dpw-form-group">
                         <label for="contact-name">Nama Lengkap <span class="required">*</span></label>
                         <input type="text" id="contact-name" name="name" required placeholder="Masukkan nama lengkap">
@@ -67,10 +68,9 @@ dpw_psi_breadcrumb();
                         <label for="contact-message">Pesan <span class="required">*</span></label>
                         <textarea id="contact-message" name="message" rows="6" required placeholder="Tulis pesan Anda..."></textarea>
                     </div>
-                    <!-- Simple CAPTCHA -->
                     <div class="dpw-form-group dpw-captcha-group">
-                        <label for="contact-captcha">Verifikasi: <?php echo esc_html( (int)dpw_psi_get_captcha_a() . ' + ' . (int)dpw_psi_get_captcha_b() ); ?> = ? <span class="required">*</span></label>
-                        <input type="number" id="contact-captcha" name="captcha" required placeholder="Jawaban">
+                        <label for="contact-captcha">Verifikasi: <?php echo esc_html( $cap_a . ' + ' . $cap_b ); ?> = ? <span class="required">*</span></label>
+                        <input type="number" id="contact-captcha" name="captcha_answer" required placeholder="Jawaban">
                     </div>
                     <button type="submit" class="dpw-btn dpw-btn-red dpw-w100" id="dpw-contact-submit">
                         <span class="dpw-btn-text">Kirim Pesan</span>
@@ -82,7 +82,4 @@ dpw_psi_breadcrumb();
         </div>
     </div>
 </section>
-<?php
-function dpw_psi_get_captcha_a() { return rand( 1, 9 ); }
-function dpw_psi_get_captcha_b() { return rand( 1, 9 ); }
-get_footer(); ?>
+<?php get_footer(); ?>
