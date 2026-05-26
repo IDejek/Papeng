@@ -18,7 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <?php wp_body_open(); ?>
 
 <header class="dpw-header" id="dpw-header">
-    <!-- Top Bar -->
     <div class="dpw-topbar">
         <div class="container">
             <div class="dpw-topbar-inner">
@@ -46,11 +45,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
     </div>
 
-    <!-- Main Nav -->
     <nav class="dpw-navbar" id="dpw-navbar">
         <div class="container">
             <div class="dpw-navbar-inner">
-                <!-- Logo -->
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="dpw-logo" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
                     <?php if ( has_custom_logo() ) :
                         the_custom_logo();
@@ -62,7 +59,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                     <?php endif; ?>
                 </a>
 
-                <!-- Desktop Menu -->
                 <div class="dpw-nav-menu" id="dpw-nav-menu">
                     <?php
                     wp_nav_menu( array(
@@ -75,12 +71,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                     ?>
                 </div>
 
-                <!-- CTA Button -->
                 <div class="dpw-nav-cta d-none d-lg-block">
                     <a href="<?php echo esc_url( get_theme_mod( 'dpw_cta_btn_url', 'https://psi.id/menjadi-anggota/' ) ); ?>" class="dpw-btn dpw-btn-red" target="_blank" rel="noopener">Gabung PSI</a>
                 </div>
 
-                <!-- Mobile Toggle -->
                 <button class="dpw-hamburger" id="dpw-hamburger" aria-label="Toggle Menu" aria-expanded="false">
                     <span></span><span></span><span></span>
                 </button>
@@ -88,7 +82,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div class="dpw-mobile-menu" id="dpw-mobile-menu">
         <div class="dpw-mobile-menu-inner">
             <?php
@@ -106,6 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 </header>
 
 <?php
+if ( ! function_exists( 'dpw_psi_fallback_menu' ) ) {
 function dpw_psi_fallback_menu() {
     $items = array(
         array( 'label' => 'Beranda', 'url' => home_url( '/' ) ),
@@ -118,8 +112,11 @@ function dpw_psi_fallback_menu() {
     );
     echo '<ul class="dpw-menu">';
     foreach ( $items as $item ) {
-        $active = ( $_SERVER['REQUEST_URI'] === parse_url( $item['url'], PHP_URL_PATH ) ) ? ' current-menu-item' : '';
+        $current_path = trailingslashit( $_SERVER['REQUEST_URI'] ?? '/' );
+        $item_path = trailingslashit( parse_url( $item['url'], PHP_URL_PATH ) );
+        $active = ( $current_path === $item_path ) ? ' current-menu-item' : '';
         echo '<li class="menu-item' . $active . '"><a href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['label'] ) . '</a></li>';
     }
     echo '</ul>';
+}
 }
