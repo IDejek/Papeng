@@ -113,7 +113,6 @@ add_action( 'widgets_init', 'dpw_psi_widgets_init' );
 /* ─── Custom Post Types ─── */
 function dpw_psi_register_cpts() {
 
-    // NEWS
     register_post_type( 'psi_news', array(
         'labels' => array( 'name' => 'Berita', 'singular_name' => 'Berita', 'add_new' => 'Tambah Berita', 'add_new_item' => 'Tambah Berita Baru', 'edit_item' => 'Edit Berita', 'view_item' => 'Lihat Berita', 'all_items' => 'Semua Berita', 'search_items' => 'Cari Berita', 'not_found' => 'Tidak ada berita ditemukan.' ),
         'public' => true, 'has_archive' => true, 'rewrite' => array( 'slug' => 'berita', 'with_front' => false ),
@@ -121,7 +120,6 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-media-document', 'show_in_rest' => true, 'capability_type' => 'post',
     ) );
 
-    // GALLERY
     register_post_type( 'psi_gallery', array(
         'labels' => array( 'name' => 'Galeri', 'singular_name' => 'Galeri', 'add_new' => 'Tambah Galeri', 'add_new_item' => 'Tambah Galeri Baru' ),
         'public' => true, 'has_archive' => true, 'rewrite' => array( 'slug' => 'galeri', 'with_front' => false ),
@@ -129,7 +127,6 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-format-gallery', 'show_in_rest' => true,
     ) );
 
-    // VIDEOS
     register_post_type( 'psi_video', array(
         'labels' => array( 'name' => 'Video', 'singular_name' => 'Video', 'add_new' => 'Tambah Video', 'add_new_item' => 'Tambah Video Baru' ),
         'public' => true, 'has_archive' => true, 'rewrite' => array( 'slug' => 'video', 'with_front' => false ),
@@ -137,7 +134,6 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-video-alt3', 'show_in_rest' => true,
     ) );
 
-    // ORGANIZATION STRUCTURE
     register_post_type( 'psi_org', array(
         'labels' => array( 'name' => 'Struktur Organisasi', 'singular_name' => 'Pengurus', 'add_new' => 'Tambah Pengurus', 'add_new_item' => 'Tambah Pengurus Baru' ),
         'public' => true, 'has_archive' => false, 'rewrite' => array( 'slug' => 'struktur-organisasi', 'with_front' => false ),
@@ -145,7 +141,6 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-groups', 'show_in_rest' => true,
     ) );
 
-    // DPD REGENCY
     register_post_type( 'psi_dpd', array(
         'labels' => array( 'name' => 'DPD Kabupaten', 'singular_name' => 'DPD', 'add_new' => 'Tambah DPD', 'add_new_item' => 'Tambah DPD Baru' ),
         'public' => true, 'has_archive' => true, 'rewrite' => array( 'slug' => 'dpd', 'with_front' => false ),
@@ -153,7 +148,6 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-location-alt', 'show_in_rest' => true,
     ) );
 
-    // AGENDA
     register_post_type( 'psi_agenda', array(
         'labels' => array( 'name' => 'Agenda', 'singular_name' => 'Agenda', 'add_new' => 'Tambah Agenda', 'add_new_item' => 'Tambah Agenda Baru' ),
         'public' => true, 'has_archive' => true, 'rewrite' => array( 'slug' => 'agenda', 'with_front' => false ),
@@ -161,7 +155,6 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-calendar-alt', 'show_in_rest' => true,
     ) );
 
-    // DOCUMENTS
     register_post_type( 'psi_document', array(
         'labels' => array( 'name' => 'Dokumen', 'singular_name' => 'Dokumen', 'add_new' => 'Tambah Dokumen', 'add_new_item' => 'Tambah Dokumen Baru' ),
         'public' => true, 'has_archive' => true, 'rewrite' => array( 'slug' => 'dokumen', 'with_front' => false ),
@@ -169,19 +162,16 @@ function dpw_psi_register_cpts() {
         'menu_icon' => 'dashicons-media-text', 'show_in_rest' => true,
     ) );
 
-    // NEWS CATEGORY
     register_taxonomy( 'news_category', 'psi_news', array(
         'labels' => array( 'name' => 'Kategori Berita', 'singular_name' => 'Kategori Berita' ),
         'hierarchical' => true, 'public' => true, 'rewrite' => array( 'slug' => 'kategori-berita' ), 'show_in_rest' => true,
     ) );
 
-    // VIDEO CATEGORY
     register_taxonomy( 'video_category', 'psi_video', array(
         'labels' => array( 'name' => 'Kategori Video', 'singular_name' => 'Kategori Video' ),
         'hierarchical' => true, 'public' => true, 'rewrite' => array( 'slug' => 'kategori-video' ), 'show_in_rest' => true,
     ) );
 
-    // DPD REGENCY (for taxonomy-like behavior)
     register_taxonomy( 'dpd_region', 'psi_dpd', array(
         'labels' => array( 'name' => 'Wilayah DPD', 'singular_name' => 'Wilayah' ),
         'hierarchical' => true, 'public' => true, 'rewrite' => array( 'slug' => 'wilayah-dpd' ), 'show_in_rest' => true,
@@ -191,18 +181,11 @@ add_action( 'init', 'dpw_psi_register_cpts' );
 
 /* ─── Custom Meta Boxes ─── */
 function dpw_psi_register_meta_boxes() {
-
-    // Video URL meta box
     add_meta_box( 'dpw_video_url', 'URL Video YouTube', 'dpw_psi_video_url_cb', 'psi_video', 'normal', 'high' );
-    // Organization Position meta box
     add_meta_box( 'dpw_org_position', 'Jabatan', 'dpw_psi_org_position_cb', 'psi_org', 'normal', 'high' );
-    // DPD meta box
     add_meta_box( 'dpw_dpd_info', 'Informasi DPD', 'dpw_psi_dpd_info_cb', 'psi_dpd', 'normal', 'high' );
-    // News featured meta box
     add_meta_box( 'dpw_news_featured', 'Pengaturan Berita', 'dpw_psi_news_featured_cb', 'psi_news', 'side', 'high' );
-    // Agenda date meta box
     add_meta_box( 'dpw_agenda_date', 'Tanggal Agenda', 'dpw_psi_agenda_date_cb', 'psi_agenda', 'normal', 'high' );
-    // Document file meta box
     add_meta_box( 'dpw_document_file', 'File Dokumen', 'dpw_psi_document_file_cb', 'psi_document', 'normal', 'high' );
 }
 add_action( 'add_meta_boxes', 'dpw_psi_register_meta_boxes' );
@@ -315,14 +298,10 @@ function dpw_psi_custom_login() {
 }
 add_action( 'login_enqueue_scripts', 'dpw_psi_custom_login' );
 
-function dpw_psi_login_logo_url() {
-    return home_url( '/' );
-}
+function dpw_psi_login_logo_url() { return home_url( '/' ); }
 add_filter( 'login_headerurl', 'dpw_psi_login_logo_url' );
 
-function dpw_psi_login_logo_title() {
-    return get_bloginfo( 'name' );
-}
+function dpw_psi_login_logo_title() { return get_bloginfo( 'name' ); }
 add_filter( 'login_headertext', 'dpw_psi_login_logo_title' );
 
 /* ─── Breadcrumb ─── */
@@ -407,14 +386,13 @@ function dpw_psi_seo_meta() {
 
     // Article Schema
     if ( is_singular( 'psi_news' ) && $post ) {
-        $author = get_the_author();
         $article_schema = array(
             '@context'       => 'https://schema.org',
             '@type'          => 'NewsArticle',
             'headline'       => get_the_title(),
             'datePublished'  => get_the_date( 'c' ),
             'dateModified'   => get_the_modified_date( 'c' ),
-            'author'         => array( '@type' => 'Person', 'name' => $author ),
+            'author'         => array( '@type' => 'Person', 'name' => get_the_author_meta( 'display_name', $post->post_author ) ),
             'publisher'      => array( '@type' => 'Organization', 'name' => $site_name ),
             'description'    => $desc,
         );
@@ -459,7 +437,6 @@ add_action( 'wp_footer', 'dpw_psi_footer_script', 99 );
 /* ─── Customizer ─── */
 function dpw_psi_customizer( $wp_customize ) {
 
-    // --- PANEL: Identitas ---
     $wp_customize->add_panel( 'dpw_identity', array( 'title' => 'Identitas & Branding', 'priority' => 10 ) );
 
     $wp_customize->add_section( 'dpw_logo_section', array( 'title' => 'Logo & Favicon', 'panel' => 'dpw_identity' ) );
@@ -474,10 +451,8 @@ function dpw_psi_customizer( $wp_customize ) {
     $wp_customize->add_setting( 'dpw_dark', array( 'default' => '#1a1a1a', 'sanitize_callback' => 'sanitize_hex_color' ) );
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'dpw_dark', array( 'label' => 'Warna Gelap', 'section' => 'dpw_colors_section' ) ) );
 
-    // --- PANEL: Homepage ---
     $wp_customize->add_panel( 'dpw_homepage', array( 'title' => 'Pengaturan Beranda', 'priority' => 20 ) );
 
-    // Hero Sliders
     $wp_customize->add_section( 'dpw_hero_section', array( 'title' => 'Hero Slider', 'panel' => 'dpw_homepage' ) );
     for ( $i = 1; $i <= 5; $i++ ) {
         $wp_customize->add_setting( "dpw_hero_{$i}_image", array( 'sanitize_callback' => 'esc_url_raw' ) );
@@ -492,7 +467,6 @@ function dpw_psi_customizer( $wp_customize ) {
         $wp_customize->add_control( "dpw_hero_{$i}_btn_url", array( 'label' => "Slide {$i} - URL Tombol", 'section' => 'dpw_hero_section', 'type' => 'url' ) );
     }
 
-    // Welcome Section
     $wp_customize->add_section( 'dpw_welcome_section', array( 'title' => 'Sambutan Ketua', 'panel' => 'dpw_homepage' ) );
     $wp_customize->add_setting( 'dpw_welcome_text', array( 'default' => 'Selamat datang di website resmi DPW PSI Papua Pegunungan.', 'sanitize_callback' => 'sanitize_textarea_field' ) );
     $wp_customize->add_control( 'dpw_welcome_text', array( 'label' => 'Teks Sambutan', 'section' => 'dpw_welcome_section', 'type' => 'textarea' ) );
@@ -509,7 +483,6 @@ function dpw_psi_customizer( $wp_customize ) {
     $wp_customize->add_setting( 'dpw_treasurer_name', array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
     $wp_customize->add_control( 'dpw_treasurer_name', array( 'label' => 'Nama Bendahara', 'section' => 'dpw_welcome_section', 'type' => 'text' ) );
 
-    // Statistics Section
     $wp_customize->add_section( 'dpw_stats_section', array( 'title' => 'Statistik Keanggotaan', 'panel' => 'dpw_homepage' ) );
     $stat_items = array( 'dpd_count' => 'Jumlah DPD', 'member_count' => 'Total Anggota', 'activity_count' => 'Kegiatan', 'regency_count' => 'Kabupaten' );
     foreach ( $stat_items as $key => $label ) {
@@ -517,7 +490,6 @@ function dpw_psi_customizer( $wp_customize ) {
         $wp_customize->add_control( "dpw_stat_{$key}", array( 'label' => $label, 'section' => 'dpw_stats_section', 'type' => 'number' ) );
     }
 
-    // CTA Section
     $wp_customize->add_section( 'dpw_cta_section', array( 'title' => 'CTA Bergabung', 'panel' => 'dpw_homepage' ) );
     $wp_customize->add_setting( 'dpw_cta_text', array( 'default' => 'Bergabunglah Bersama Kami!', 'sanitize_callback' => 'sanitize_text_field' ) );
     $wp_customize->add_control( 'dpw_cta_text', array( 'label' => 'Teks CTA', 'section' => 'dpw_cta_section', 'type' => 'text' ) );
@@ -528,7 +500,6 @@ function dpw_psi_customizer( $wp_customize ) {
     $wp_customize->add_setting( 'dpw_cta_btn_url', array( 'default' => 'https://psi.id/menjadi-anggota/', 'sanitize_callback' => 'esc_url_raw' ) );
     $wp_customize->add_control( 'dpw_cta_btn_url', array( 'label' => 'URL Tombol', 'section' => 'dpw_cta_section', 'type' => 'url' ) );
 
-    // --- PANEL: Kontak & Sosmed ---
     $wp_customize->add_panel( 'dpw_contact_panel', array( 'title' => 'Kontak & Media Sosial', 'priority' => 30 ) );
 
     $wp_customize->add_section( 'dpw_contact_section', array( 'title' => 'Informasi Kontak', 'panel' => 'dpw_contact_panel' ) );
@@ -545,7 +516,6 @@ function dpw_psi_customizer( $wp_customize ) {
         $wp_customize->add_control( $key, array( 'label' => $label, 'section' => 'dpw_social_section', 'type' => 'url' ) );
     }
 
-    // WhatsApp Floating
     $wp_customize->add_section( 'dpw_wa_section', array( 'title' => 'WhatsApp Floating', 'panel' => 'dpw_contact_panel' ) );
     $wp_customize->add_setting( 'dpw_wa_float_number', array( 'default' => '082267218125', 'sanitize_callback' => 'sanitize_text_field' ) );
     $wp_customize->add_control( 'dpw_wa_float_number', array( 'label' => 'Nomor WhatsApp', 'section' => 'dpw_wa_section', 'type' => 'text' ) );
@@ -554,7 +524,6 @@ function dpw_psi_customizer( $wp_customize ) {
     $wp_customize->add_setting( 'dpw_wa_float_enabled', array( 'default' => '1', 'sanitize_callback' => 'absint' ) );
     $wp_customize->add_control( 'dpw_wa_float_enabled', array( 'label' => 'Aktifkan Floating WhatsApp', 'section' => 'dpw_wa_section', 'type' => 'checkbox' ) );
 
-    // --- PANEL: SEO & Tracking ---
     $wp_customize->add_panel( 'dpw_seo_panel', array( 'title' => 'SEO & Pelacakan', 'priority' => 40 ) );
 
     $wp_customize->add_section( 'dpw_tracking_section', array( 'title' => 'Tracking & Pixel', 'panel' => 'dpw_seo_panel' ) );
@@ -570,7 +539,6 @@ function dpw_psi_customizer( $wp_customize ) {
     $wp_customize->add_setting( 'dpw_footer_script', array( 'default' => '', 'sanitize_callback' => 'wp_kses_post' ) );
     $wp_customize->add_control( 'dpw_footer_script', array( 'label' => 'Footer Script (sebelum </body>)', 'section' => 'dpw_scripts_section', 'type' => 'textarea' ) );
 
-    // --- PANEL: Maintenance ---
     $wp_customize->add_section( 'dpw_maintenance_section', array( 'title' => 'Mode Maintenance', 'priority' => 50 ) );
     $wp_customize->add_setting( 'dpw_maintenance', array( 'default' => '0', 'sanitize_callback' => 'absint' ) );
     $wp_customize->add_control( 'dpw_maintenance', array( 'label' => 'Aktifkan Mode Maintenance', 'section' => 'dpw_maintenance_section', 'type' => 'checkbox' ) );
@@ -591,6 +559,34 @@ function dpw_psi_customizer_css() {
 }
 add_action( 'wp_head', 'dpw_psi_customizer_css', 5 );
 
+/* ─── Customizer Button Control & Demo Import ─── */
+if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'DPW_PSI_Button_Control' ) ) {
+    class DPW_PSI_Button_Control extends \WP_Customize_Control {
+        public $type = 'button';
+        public $button_class = '';
+        public $link = '';
+
+        public function render_content() {
+            echo '<span class="customize-control-title">' . esc_html( $this->label ) . '</span>';
+            if ( $this->description ) {
+                echo '<span class="description customize-control-description">' . esc_html( $this->description ) . '</span>';
+            }
+            echo '<a href="' . esc_url( $this->link ) . '" class="button ' . esc_attr( $this->button_class ) . '">' . esc_html( $this->label ) . '</a>';
+        }
+    }
+}
+
+add_action( 'customize_register', function( $wp_customize ) {
+    $wp_customize->add_section( 'dpw_demo_import', array( 'title' => 'Import Data Demo', 'priority' => 999 ) );
+    $wp_customize->add_setting( 'dpw_demo_import_btn', array( 'sanitize_callback' => 'esc_url_raw' ) );
+    $wp_customize->add_control( new DPW_PSI_Button_Control( $wp_customize, 'dpw_demo_import_btn', array(
+        'section'      => 'dpw_demo_import',
+        'label'        => 'Klik untuk Import Data Demo (DPD, Pengurus, Berita)',
+        'button_class' => 'button button-primary',
+        'link'         => wp_nonce_url( admin_url( 'customize.php?dpw_import_demo=1' ), 'dpw_demo_import', '_wpnonce' ),
+    ) ) );
+}, 100 );
+
 /* ─── Maintenance Mode ─── */
 function dpw_psi_maintenance_mode() {
     if ( get_theme_mod( 'dpw_maintenance', 0 ) && ! is_user_logged_in() && ! is_admin() ) {
@@ -610,13 +606,17 @@ function dpw_psi_security() {
 }
 add_action( 'init', 'dpw_psi_security' );
 
-/* ─── Disable REST API for non-logged users ─── */
+/* ─── Disable REST API for non-logged users (except PWA manifest) ─── */
 function dpw_psi_disable_rest() {
-    if ( ! is_user_logged_in() ) {
-        add_filter( 'rest_authentication_errors', function( $result ) {
-            return new WP_Error( 'rest_disabled', 'API tidak tersedia.', array( 'status' => 403 ) );
-        });
-    }
+    if ( is_user_logged_in() ) return;
+
+    $rest_route = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+
+    if ( strpos( $rest_route, '/wp-json/dpw/v1/manifest' ) !== false ) return;
+
+    add_filter( 'rest_authentication_errors', function( $result ) {
+        return new WP_Error( 'rest_disabled', 'API tidak tersedia.', array( 'status' => 403 ) );
+    });
 }
 add_action( 'init', 'dpw_psi_disable_rest' );
 
@@ -628,9 +628,15 @@ function dpw_psi_contact_form() {
     $email   = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
     $subject = sanitize_text_field( wp_unslash( $_POST['subject'] ?? '' ) );
     $message = sanitize_textarea_field( wp_unslash( $_POST['message'] ?? '' ) );
+    $captcha = isset( $_POST['captcha_answer'] ) ? absint( $_POST['captcha_answer'] ) : 0;
+    $expected = isset( $_POST['captcha_expected'] ) ? absint( $_POST['captcha_expected'] ) : 0;
 
     if ( empty( $name ) || empty( $email ) || empty( $message ) ) {
         wp_send_json_error( array( 'message' => 'Mohon lengkapi semua field yang wajib diisi.' ) );
+    }
+
+    if ( $expected === 0 || $captcha !== $expected ) {
+        wp_send_json_error( array( 'message' => 'Jawaban verifikasi salah. Silakan coba lagi.' ) );
     }
 
     $to = get_theme_mod( 'dpw_email', get_option( 'admin_email' ) );
@@ -704,7 +710,7 @@ function dpw_psi_pwa_manifest() {
 }
 add_action( 'wp_head', 'dpw_psi_pwa_manifest', 6 );
 
-/* ─── Demo Data Importer (triggered from customizer) ─── */
+/* ─── Demo Data Importer ─── */
 function dpw_psi_import_demo_data() {
     if ( ! isset( $_GET['dpw_import_demo'] ) || ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( $_GET['_wpnonce'] ?? '', 'dpw_demo_import' ) ) return;
 
@@ -776,21 +782,6 @@ function dpw_psi_import_demo_data() {
 }
 add_action( 'admin_init', 'dpw_psi_import_demo_data' );
 
-/* ─── Add Demo Import Button to Customizer ─── */
-function dpw_psi_demo_import_button( $wp_customize ) {
-    $wp_customize->add_section( 'dpw_demo_import', array( 'title' => 'Import Data Demo', 'priority' => 999 ) );
-    $wp_customize->add_setting( 'dpw_demo_import_btn', array( 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'dpw_demo_import_btn', array(
-        'section' => 'dpw_demo_import',
-        'type'    => 'button',
-        'label'   => 'Klik untuk Import Data Demo (DPD, Pengurus, Berita)',
-        'button_class' => 'button button-primary',
-        'priority' => 10,
-        'link'    => wp_nonce_url( admin_url( 'customize.php?dpw_import_demo=1' ), 'dpw_demo_import', '_wpnonce' ),
-    ) );
-}
-add_action( 'customize_register', 'dpw_psi_demo_import_button', 100 );
-
 /* ─── Query Modifications for CPT Archives ─── */
 function dpw_psi_pre_get_posts( $query ) {
     if ( ! is_admin() && $query->is_main_query() ) {
@@ -806,3 +797,14 @@ function dpw_psi_pre_get_posts( $query ) {
     }
 }
 add_action( 'pre_get_posts', 'dpw_psi_pre_get_posts' );
+
+/* ─── Flush rewrite rules on theme switch/activate ─── */
+add_action( 'after_switch_theme', function() {
+    flush_rewrite_rules();
+});
+
+/* ─── Include Inc Files ─── */
+require_once DPW_PSI_DIR . '/inc/cleanup.php';
+require_once DPW_PSI_DIR . '/inc/sitemaps.php';
+require_once DPW_PSI_DIR . '/inc/pwa.php';
+require_once DPW_PSI_DIR . '/inc/widgets.php';
