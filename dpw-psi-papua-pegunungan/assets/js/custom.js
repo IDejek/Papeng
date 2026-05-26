@@ -207,11 +207,20 @@
                 if (btnLoading) btnLoading.style.display = 'none';
                 if (resultDiv) {
                     resultDiv.style.display = 'block';
+                    /* Clear previous result safely */
+                    resultDiv.innerHTML = '';
+
                     if (data.success) {
-                        resultDiv.innerHTML = '<div style="padding:1rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;color:#166534;font-size:0.9rem;">' + data.data.message + '</div>';
+                        var successBox = document.createElement('div');
+                        successBox.style.cssText = 'padding:1rem;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;color:#166534;font-size:0.9rem;';
+                        successBox.textContent = data.data.message; /* textContent prevents DOM XSS */
+                        resultDiv.appendChild(successBox);
                         contactForm.reset();
                     } else {
-                        resultDiv.innerHTML = '<div style="padding:1rem;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;color:#991b1b;font-size:0.9rem;">' + data.data.message + '</div>';
+                        var errorBox = document.createElement('div');
+                        errorBox.style.cssText = 'padding:1rem;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;color:#991b1b;font-size:0.9rem;';
+                        errorBox.textContent = data.data.message; /* textContent prevents DOM XSS */
+                        resultDiv.appendChild(errorBox);
                     }
                 }
             })
@@ -220,7 +229,11 @@
                 if (btnLoading) btnLoading.style.display = 'none';
                 if (resultDiv) {
                     resultDiv.style.display = 'block';
-                    resultDiv.innerHTML = '<div style="padding:1rem;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;color:#991b1b;font-size:0.9rem;">Terjadi kesalahan jaringan. Silakan coba lagi.</div>';
+                    resultDiv.innerHTML = '';
+                    var catchBox = document.createElement('div');
+                    catchBox.style.cssText = 'padding:1rem;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;color:#991b1b;font-size:0.9rem;';
+                    catchBox.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
+                    resultDiv.appendChild(catchBox);
                 }
             });
         });
